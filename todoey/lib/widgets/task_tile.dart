@@ -1,40 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:todoey/constants.dart';
 
-class TaskTile extends StatefulWidget {
-  @override
-  _TaskTileState createState() => _TaskTileState();
-}
+class TaskTile extends StatelessWidget {
+  final isChecked;
+  final function;
+  final label;
 
-class _TaskTileState extends State<TaskTile> {
-  bool isChecked = false;
+  TaskTile({this.isChecked, this.function, this.label});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Buy milk!'),
-      trailing: TaskCheckbox(
-        isChecked: isChecked,
-        function: (bool? checkboxState) {
-          setState(() {
-            isChecked = checkboxState!;
-          });
-        },
+      title: Text(label),
+      trailing: Checkbox(
+        activeColor: kPrimaryColor,
+        value: isChecked,
+        onChanged: function,
       ),
-    );
-  }
-}
-
-class TaskCheckbox extends StatelessWidget {
-  final isChecked;
-  final function;
-
-  TaskCheckbox({this.isChecked, this.function});
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: isChecked,
-      onChanged: function,
     );
   }
 }
