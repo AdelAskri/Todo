@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:todoey/constants.dart';
 
 class TaskBottomSheet extends StatelessWidget {
-  const TaskBottomSheet({Key? key}) : super(key: key);
+  final function;
+
+  TaskBottomSheet(this.function);
 
   @override
   Widget build(BuildContext context) {
+    String todoLabel = '';
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 40,
@@ -23,7 +26,9 @@ class TaskBottomSheet extends StatelessWidget {
           ),
           TextField(
             autofocus: true,
-            decoration: InputDecoration(),
+            onChanged: (value) {
+              todoLabel = value;
+            },
           ),
           SizedBox(
             height: 10,
@@ -35,7 +40,7 @@ class TaskBottomSheet extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              //add task
+              function(todoLabel);
             },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 5),

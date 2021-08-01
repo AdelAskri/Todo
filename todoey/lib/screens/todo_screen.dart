@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:todoey/constants.dart';
+import 'package:todoey/models/task.dart';
 import 'package:todoey/widgets/tasks_list.dart';
 import 'bottom_sheet.dart';
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends StatefulWidget {
   const TodoScreen({Key? key}) : super(key: key);
+
+  @override
+  _TodoScreenState createState() => _TodoScreenState();
+}
+
+class _TodoScreenState extends State<TodoScreen> {
+  List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,12 @@ class TodoScreen extends StatelessWidget {
               ),
             ),
             context: context,
-            builder: (context) => TaskBottomSheet(),
+            builder: (context) => TaskBottomSheet((newTaskScreen) {
+              setState(() {
+                tasks.add(Task(label: newTaskScreen));
+              });
+              Navigator.pop(context);
+            }),
           );
         },
       ),
@@ -65,7 +78,7 @@ class TodoScreen extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasks.length} Tasks',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -78,7 +91,7 @@ class TodoScreen extends StatelessWidget {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: TasksList(),
+              child: TasksList(tasks),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
