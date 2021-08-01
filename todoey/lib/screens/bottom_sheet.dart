@@ -30,8 +30,9 @@ class TaskBottomSheet extends StatelessWidget {
           ),
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateColor.resolveWith((states) => kPrimaryColor),
+              backgroundColor: MaterialStateColor.resolveWith(
+                (states) => kPrimaryColor,
+              ),
             ),
             onPressed: () {
               //add task
