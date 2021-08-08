@@ -25,11 +25,18 @@ class TaskBottomSheet extends StatelessWidget {
               color: kPrimaryColor,
             ),
           ),
-          TextField(
-            autofocus: true,
-            onChanged: (value) {
-              todoLabel = value;
-            },
+          Hero(
+            tag: 'textField',
+            child: TextField(
+              style: TextStyle(
+                color: Colors.white
+              ),
+              decoration: kTextFieldStyle,
+              autofocus: true,
+              onChanged: (value) {
+                todoLabel = value;
+              },
+            ),
           ),
           SizedBox(
             height: 10,

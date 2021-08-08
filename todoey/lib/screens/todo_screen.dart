@@ -10,13 +10,14 @@ class TodoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: kAccentColor,
         child: Icon(
           Icons.add,
           size: 35,
         ),
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: kBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
@@ -82,7 +83,7 @@ class TodoScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: TasksList(Controller.to.tasks),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: kBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
