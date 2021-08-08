@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:todoey/constants.dart';
-import 'package:todoey/models/task.dart';
 import 'package:todoey/widgets/tasks_list.dart';
+import '../controller.dart';
 import 'bottom_sheet.dart';
 
-class TodoScreen extends StatefulWidget {
-  const TodoScreen({Key? key}) : super(key: key);
-
-  @override
-  _TodoScreenState createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
-  List<Task> tasks = [];
-
+class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +25,7 @@ class _TodoScreenState extends State<TodoScreen> {
             ),
             context: context,
             builder: (context) => TaskBottomSheet((newTaskScreen) {
-              setState(() {
-                tasks.add(Task(label: newTaskScreen));
-              });
-              Navigator.pop(context);
+              Controller.to.add(newTaskScreen);
             }),
           );
         },
@@ -77,21 +66,21 @@ class _TodoScreenState extends State<TodoScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  '${tasks.length} Tasks',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                )
+                Obx(() => Text(
+                      '${Controller.to.tasks.length} Tasks',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ))
               ],
             ),
           ),
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: TasksList(tasks),
+              child: TasksList(Controller.to.tasks),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

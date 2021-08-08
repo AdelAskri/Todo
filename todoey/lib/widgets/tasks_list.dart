@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/models/task.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:todoey/controller.dart';
 import 'task_tile.dart';
 
-class TasksList extends StatefulWidget {
-  final List<Task> tasks;
+class TasksList extends StatelessWidget {
+  final tasks;
 
   TasksList(this.tasks);
 
   @override
-  _TasksListState createState() => _TasksListState();
-}
-
-class _TasksListState extends State<TasksList> {
-  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.tasks.length,
-      itemBuilder: (context, index) {
-        return TaskTile(
-          function: (checkboxState) {
-            setState(() {
-              widget.tasks[index].toggleChecked();
-            });
+    return Obx(() => ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (context, index) {
+            return Dismissible(
+              key: UniqueKey(),
+              onDismissed: (_) {
+                var removed = Controller.to.tasks[index];
+                Controller.to.tasks.removeAt(index);
+                Get.snackbar(
+                  'Task Removed',
+                  'The task ${removed.label} was removed!',
+                );
+              },
+              child: TaskTile(
+                function: (checkboxState) {
+                  var changed = Controller.to.tasks[index];
+                  changed.isChecked = checkboxState;
+                  Controller.to.tasks[index] = changed;
+                },
+                isChecked: tasks[index].isChecked,
+                label: tasks[index].label,
+              ),
+            );
           },
-          isChecked: widget.tasks[index].isChecked,
-          label: widget.tasks[index].label,
-        );
-      },
-    );
+        ));
   }
 }

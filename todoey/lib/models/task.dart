@@ -4,7 +4,5 @@ class Task {
 
   Task({required this.label, this.isChecked=false});
 
-  void toggleChecked() {
-    isChecked = !isChecked;
-  }
+
 }

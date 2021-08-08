@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todoey/constants.dart';
 
 class TaskBottomSheet extends StatelessWidget {
@@ -41,6 +42,7 @@ class TaskBottomSheet extends StatelessWidget {
             ),
             onPressed: () {
               function(todoLabel);
+              Get.back();
             },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 5),

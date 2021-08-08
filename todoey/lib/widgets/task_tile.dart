@@ -15,7 +15,6 @@ class TaskTile extends StatelessWidget {
         label,
         style: TextStyle(
           fontSize: 20,
-
         ),
       ),
       trailing: Checkbox(
