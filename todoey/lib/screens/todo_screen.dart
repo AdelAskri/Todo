@@ -58,7 +58,7 @@ class TodoScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  'Todoey',
+                  'Todo',
                   style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.w700,

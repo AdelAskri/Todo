@@ -22,6 +22,10 @@ class TasksList extends StatelessWidget {
                 Get.snackbar(
                   'Task Removed',
                   'The task ${removed.label} was removed!',
+                  mainButton: TextButton(onPressed: (){
+                    Controller.to.tasks.insert(index, removed);
+                    Get.back();
+                  }, child: Text('Undo'))
                 );
               },
               child: TaskTile(
