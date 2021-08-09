@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:todoey/controller.dart';
+import 'package:todoey/models/task.dart';
 import 'task_tile.dart';
 
 class TasksList extends StatelessWidget {
@@ -17,13 +18,17 @@ class TasksList extends StatelessWidget {
             return Dismissible(
               key: UniqueKey(),
               onDismissed: (_) {
-                var removed = Controller.to.tasks[index];
+                Task? removed = Controller.to.tasks[index];
                 Controller.to.tasks.removeAt(index);
                 Get.snackbar(
                   'Task Removed',
                   'The task ${removed.label} was removed!',
                   mainButton: TextButton(onPressed: (){
-                    Controller.to.tasks.insert(index, removed);
+                    if(removed!=null) {
+                      Controller.to.tasks.insert(index, removed!);
+                    }
+
+                  removed=null;
                     Get.back();
                   }, child: Text('Undo'))
                 );
